@@ -1,0 +1,55 @@
+@import "./../../../../styles/variables/colors.scss";
+
+footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btn-control, .btn-control-main {
+            padding: 10px;
+            cursor: pointer;
+            color: $secondary-color;
+            transition: 0.5s;
+        }
+
+        .btn-control:hover {
+            color: $primary-color;
+            filter: drop-shadow($primary-color 0 0 8px);
+        }
+        
+        .btn-control-main {
+            text-shadow: $primary-color 0 0 10px;
+            color: $primary-color;
+
+        }
+
+        .btn-main {
+            border: 3px solid $primary-color;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: $primary-color 0 0 8px;
+            margin: 0 20px;
+        }
+
+        .btn-main:hover {
+            box-shadow: $primary-color 0 0 10px;
+            filter: drop-shadow($primary-color 0 0 3px);
+        }
+    }
+
+    .progress-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        
+        h2 {
+            margin: 0 10px;
+            color: $fivth-color;
+        }
+    }
+}

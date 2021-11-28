@@ -1,0 +1,55 @@
+@import './../../styles/variables/colors.scss';
+
+.listen {
+    background-color: $bg-primary-color;
+
+    display: grid;
+
+    grid-template-columns: 250px calc(100vw - 250px);
+    grid-template-rows:  calc(100vh - 10em) 10em;
+    grid-template-areas: 'asideListener sectionListener'
+                         'footerListener footerListener';
+
+    // & > header {
+    //     background-color: red;
+    //     grid-area: headerListener;
+    // }
+    
+    & > aside {
+        background-color: $bg-primary-color;
+        grid-area: asideListener;
+    }
+    
+    & > section {
+        background-color: $fivth-color;
+        grid-area: sectionListener;
+        
+    }
+    
+    & > footer {
+        background-color: $fourth-color;
+        grid-area: footerListener
+    }
+
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .listen {
+        grid-template-columns: 100vw;
+        grid-template-areas: 'sectionListener'
+                            'footerListener';
+
+    & > aside {
+        display: none;
+    }                            
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+
+    .listen {
+        grid-template-columns: 150px calc(100vw - 150px);
+        grid-template-areas: 'asideListener sectionListener'
+                             'footerListener footerListener';
+    }
+}

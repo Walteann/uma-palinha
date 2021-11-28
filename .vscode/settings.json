@@ -1,0 +1,8 @@
+{
+    "emmet.variables": {
+        "lang": "en",
+        "charset": "UTF-8",
+        "javascript": "javascriptreact"
+    },
+    "prettier.tabWidth": 4
+}

@@ -1,0 +1,15 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn {
+        padding: 20px;
+        cursor: pointer;
+    }
+
+    .header-icons-right {
+        display: flex;
+        align-items: center;
+    }
+}
