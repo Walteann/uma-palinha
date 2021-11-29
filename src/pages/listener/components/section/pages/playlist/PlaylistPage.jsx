@@ -1,9 +1,10 @@
+import './PlaylistPage.scss';
+
 import { useEffect, useState } from 'react';
 
 import { ItunesService } from '../../../../../../services/ItunesService';
-import { CardPlaylistDiscCover } from './../../components/card-playlist-disc-cover/CardPlaylistDiscCover';
+import { CardPlaylistDisc } from '../../components/card-playlist-disc/CardPlaylistDisc';
 import { Header } from './../../components/header/Header';
-import './PlaylistPage.scss';
 
 export const PlayListPage = () =>  {
 
@@ -17,11 +18,7 @@ export const PlayListPage = () =>  {
 
     const getMusicsByTerm = async (term) => {
         const { data } = await ItunesService.searchMusicByTerm(term);
-
-        console.log(data);
-
         setPlayList([...data.results])
-
     }
         
     
@@ -30,11 +27,33 @@ export const PlayListPage = () =>  {
         <h3>Play List</h3>
         <hr />
 
-        <section>
+        <section className="section-playlist">
 
-            <div className="result-search">
+            {/* <div className="result-search">
                 {playlist?.map(result => <CardPlaylistDiscCover key={result.trackId} disc={result} />)}
-            </div>
+            </div> */}
+
+            {/* <table className="table-playlist">
+                <tbody>
+                    {playlist?.map(result => 
+                        <tr key={result.trackId}>
+                            <td>
+                                <img src={result.artworkUrl60} alt="" />
+                            </td>
+                            <td>
+                                {result.trackName}
+                            </td>
+                            <td>
+                                {result.artistName}
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table> */}
+          
+            {playlist?.map(result => 
+                <CardPlaylistDisc disc={result} key={result.trackId}/>
+            )}
 
             
 

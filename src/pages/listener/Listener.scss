@@ -13,7 +13,7 @@
     // & > header {
     //     background-color: red;
     //     grid-area: headerListener;
-    // }
+// }
     
     & > aside {
         background-color: $bg-primary-color;
@@ -21,7 +21,7 @@
     }
     
     & > section {
-        background-color: $fivth-color;
+        background-color: $bg-primary-color;
         grid-area: sectionListener;
         
     }

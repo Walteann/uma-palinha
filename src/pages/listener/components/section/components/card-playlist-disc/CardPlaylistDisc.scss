@@ -1,0 +1,105 @@
+@import './../../../../../../styles/variables/colors.scss';
+
+.card-playlist {
+    display: grid;
+    grid-template-columns: 70px 70px 200px 200px 120px 250px 70px 70px;
+    grid-template-areas: 'play artworkUrl60 trackName artistName primaryGenreName collectionName country trackPrice';
+    align-items: center;
+    text-align: left;
+    background-color: rgba(215, 245, 244, 0.1);
+    margin: 2px 8px;
+    border-radius: 10px;
+    grid-gap: 0 20px;
+    color: $fivth-color;
+
+    &__play {
+        grid-area: play;
+        padding-left: 10px;
+        color: $third-color;
+        transition: all .5s;
+        cursor: pointer;
+    }
+    &__play:hover {
+        color: $primary-color;
+    }
+
+    &__img {
+        display: block;
+        grid-area: artworkUrl60;
+    }
+    
+    &__trackName {
+        grid-area: trackName;
+        text-decoration: none;
+        color: $fivth-color;
+        transition: all 0.5s;
+    }
+
+    &__trackName:hover {
+        color: $primary-color;
+        text-decoration: underline;
+        text-shadow: $primary-color 0 0 10px;
+    }
+
+    &__artistName {
+        grid-area: artistName;
+    }
+    &__primaryGenreName {
+        grid-area: primaryGenreName;
+    }
+    &__collectionName{
+        grid-area: collectionName;
+    }
+    &__country{
+        grid-area: country;
+    }
+    &__trackPrice {
+        grid-area: trackPrice;
+    }
+}
+
+.card-playlist:hover {
+    background-color: rgba(215, 245, 244, 0.20);
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .card-playlist {
+        grid-template-columns: 70px 70px 200px;
+        grid-template-areas: 'play artworkUrl60 trackName';
+        overflow-x: hidden;
+        &__artistName,
+        &__primaryGenreName,
+        &__collectionName,
+        &__country,
+        &__trackPrice {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+    
+    .card-playlist {
+        grid-template-columns: 70px 70px 200px 200px;
+        grid-template-areas: 'play artworkUrl60 trackName artistName';
+        &__primaryGenreName,
+        &__collectionName,
+        &__country,
+        &__trackPrice {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .card-playlist {
+        grid-template-columns: 70px 70px 200px 200px 120px;
+        grid-template-areas: 'play artworkUrl60 trackName artistName primaryGenreName';
+        &__collectionName,
+        &__country,
+        &__trackPrice {
+            display: none;
+        }
+    }
+
+}

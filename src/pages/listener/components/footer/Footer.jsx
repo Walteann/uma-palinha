@@ -1,6 +1,6 @@
 import './Footer.scss';
 
-import { faBackward, faForward, faPause, faPlay, faRandom, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
+import { faFastBackward, faFastForward, faPause, faPlay, faRandom, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useState } from 'react';
@@ -92,7 +92,7 @@ export const Footer = () => {
                     size="2x"
                 />
                 <FontAwesomeIcon
-                    icon={faBackward}
+                    icon={faFastBackward}
                     className="btn-control"
                     size="2x"
                 />
@@ -115,7 +115,7 @@ export const Footer = () => {
                     </div>
                 )}
                 <FontAwesomeIcon
-                    icon={faForward}
+                    icon={faFastForward}
                     className="btn-control"
                     size="2x"
                 />
