@@ -97,7 +97,7 @@ export const Footer = () => {
                     size="2x"
                 />
                 {isPlaying ? (
-                    <div className="btn-main" onClick={pauseMusic}>
+                    <div className="btn-main btn-main--active" onClick={pauseMusic}>
                         <FontAwesomeIcon
                             icon={faPause}
                             className="btn-control-main"

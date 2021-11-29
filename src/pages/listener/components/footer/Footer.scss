@@ -29,11 +29,15 @@ footer {
         }
 
         .btn-main {
-            border: 3px solid $primary-color;
+            border: 2px solid $primary-color;
             padding: 10px;
             border-radius: 50%;
-            box-shadow: $primary-color 0 0 8px;
             margin: 0 20px;
+            box-shadow: $primary-color 0 0 2px;
+        }
+        
+        .btn-main--active {
+            box-shadow: $primary-color 0 0 8px;
         }
 
         .btn-main:hover {

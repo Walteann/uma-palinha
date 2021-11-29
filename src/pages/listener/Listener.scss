@@ -18,6 +18,7 @@
     & > aside {
         background-color: $bg-primary-color;
         grid-area: asideListener;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     & > section {
