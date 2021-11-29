@@ -1,17 +1,10 @@
-import "./Footer.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faPlay,
-    faPause,
-    faVolumeMute,
-    faForward,
-    faBackward,
-    faRandom,
-} from "@fortawesome/free-solid-svg-icons";
-import { useLayoutEffect, useState } from "react";
+import './Footer.scss';
 
-import ProgressBar from "@ramonak/react-progress-bar";
-import { useEffect } from "react/cjs/react.development";
+import { faBackward, faForward, faPause, faPlay, faRandom, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ProgressBar from '@ramonak/react-progress-bar';
+import { useState } from 'react';
+
 import { If } from './../../../../components/if/If';
 
 const SRC =
@@ -20,6 +13,7 @@ const SRC =
 export const Footer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState('');
+    const [currentTime, setCurrentTime] = useState('');
 
     function changeMainButton() {
         setIsPlaying(!isPlaying);
@@ -42,58 +36,45 @@ export const Footer = () => {
         changeMainButton();
     };
 
+    
+    const audioMusicElement = () =>
+    document.getElementsByClassName("audio-element")[0];
+    
     const mutedMusic = () => {
         const audioElement = audioMusicElement();
-        console.log(audioElement);
         audioElement.muted = !audioElement.muted;
-        console.log(audioElement.muted);
     };
 
-    const audioMusicElement = () =>
-        document.getElementsByClassName("audio-element")[0];
-
-    useEffect(() => {
-        console.log("Numeros de vezes");
-        mutedMusic();
-    }, []);
 
     const updateTimeMusic = () => {
         const interval = setInterval(() => {
-
             if (audioMusicElement().currentTime !== audioMusicElement().duration) {
-
-                setDuration(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
+                
+                setCurrentTime(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
+                setDuration(getFlooredFixed(audioMusicElement()?.duration / 100, 2));
+                
             } else {
+                setIsPlaying(false);
                 clearInterval(interval);
             }
 
         });
     }
 
-    const teste = () => {
-        console.log('percetagem: ', calculateProgressBar())
-        console.log('total: ', getFlooredFixed(audioMusicElement()?.duration / 100, 2))
-    }
-
     const getFlooredFixed = (value, digit) =>{
         return (Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)).toFixed(digit);
-    }
-
-    const calculateProgressBar = () => {
-        return Number(duration) * 100 / Number(getFlooredFixed(audioMusicElement()?.duration / 100, 2))
-    }
-
-    function transformInPercetage(value) {
-        return getFlooredFixed(value) * 100;
     }
 
     return (
         <footer>
             <audio className="audio-element" src={SRC}></audio>
             <div className="progress-bar">
-                <h2>{duration}</h2>
+                <h2>{currentTime}</h2>
                 <ProgressBar
-                    completed={calculateProgressBar()}
+                    completed={currentTime}
+                    maxCompleted={Number(duration)}
+                    transitionDuration="0.15s"
+                    transitionTimingFunction="linear"
                     height="5px"
                     width="80vw"
                     isLabelVisible={false}
@@ -101,12 +82,11 @@ export const Footer = () => {
                 />
                 <If condition={audioMusicElement()?.duration}>
 
-                <h2>{getFlooredFixed(audioMusicElement()?.duration / 100, 2)}</h2>
+                <h2>{duration}</h2>
                 </If>
             </div>
             <div className="controls">
                 <FontAwesomeIcon
-                onClick={teste}
                     icon={faRandom}
                     className="btn-control"
                     size="2x"
