@@ -73,7 +73,7 @@ export const Footer = () => {
                 <ProgressBar
                     completed={currentTime}
                     maxCompleted={Number(duration)}
-                    transitionDuration="0.15s"
+                    transitionDuration="1s"
                     transitionTimingFunction="linear"
                     height="5px"
                     width="80vw"
