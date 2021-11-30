@@ -3,25 +3,16 @@ import "./App.scss";
 import { BrowserRouter} from 'react-router-dom';
 
 import { RoutesApp } from './routes';
+import { Provider } from "react-redux";
+import { store } from './store';
 
 function App() {
     return <div className="App">
-		<BrowserRouter>
-
-			{/* <Routes>
-
-				<Route path="/" element={<Welcome />}></Route>
-				<Route path="/home" element={<Home />}>
-					<Route path="filho1" element={<Page1/>}></Route>
-					<Route path="filho2" element={<Page2/>}></Route>
-
-				</Route>
-
-			</Routes> */}
-
-			<RoutesApp />
-
-		</BrowserRouter>
+		<Provider store={store}>
+			<BrowserRouter>
+				<RoutesApp />
+			</BrowserRouter>
+		</Provider>
 	</div>;
 }
 

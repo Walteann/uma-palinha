@@ -29,7 +29,13 @@
     
     & > footer {
         background-color: $fourth-color;
-        grid-area: footerListener
+        grid-area: footerListener;
+
+        // // TODO: Teste
+        // position: fixed;
+        // bottom: 0;
+        // width: 100%;
+        // height: 200px;
     }
 
 }

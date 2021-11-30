@@ -3,37 +3,24 @@ import './Footer.scss';
 import { faFastBackward, faFastForward, faPause, faPlay, faRandom, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { If } from './../../../../components/if/If';
-
-const SRC =
-    "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/f7/89/fa/f789fa0b-8a5d-bf74-7fa5-0f679d1ceb00/mzaf_15871700748162583897.plus.aac.p.m4a";
 
 export const Footer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState('');
     const [currentTime, setCurrentTime] = useState('');
 
-    function changeMainButton() {
-        setIsPlaying(!isPlaying);
-    }
-
-    const playMusic = () => {
-        const audioElement = audioMusicElement();
-        audioElement.muted = false;
-        audioElement.play();
-        updateTimeMusic();
-        console.log(audioElement);
-        changeMainButton();
-    };
+    const music = useSelector(state => state.musicInplayer);
 
     const pauseMusic = () => {
         const audioElement = audioMusicElement();
         console.log(audioElement);
-
+        
         audioElement.pause();
-        changeMainButton();
+        setIsPlaying(false);
     };
 
     
@@ -45,8 +32,7 @@ export const Footer = () => {
         audioElement.muted = !audioElement.muted;
     };
 
-
-    const updateTimeMusic = () => {
+    const updateTimeMusic = useCallback(() => {
         const interval = setInterval(() => {
             if (audioMusicElement().currentTime !== audioMusicElement().duration) {
                 
@@ -59,15 +45,34 @@ export const Footer = () => {
             }
 
         });
-    }
+    }, []);
+
+        
+    const playMusic = useCallback(() => {
+        const audioElement = audioMusicElement();
+        audioElement.muted = false;
+        audioElement.play();
+        updateTimeMusic();
+        setIsPlaying(true);
+    }, [updateTimeMusic]);
+    
 
     const getFlooredFixed = (value, digit) =>{
         return (Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)).toFixed(digit);
     }
 
+    useEffect(() => {
+
+        if (music.previewUrl) {
+            playMusic();
+        }
+
+    }, [music, playMusic]);
+
     return (
         <footer>
-            <audio className="audio-element" src={SRC}></audio>
+            <span style={{color: '#FFFFFF'}}>{music.previewUrl}</span>
+            <audio className="audio-element" src={music.previewUrl}></audio>
             <div className="progress-bar">
                 <h2>{currentTime}</h2>
                 <ProgressBar
