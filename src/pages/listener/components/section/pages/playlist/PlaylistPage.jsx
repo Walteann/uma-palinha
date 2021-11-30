@@ -28,34 +28,10 @@ export const PlayListPage = () =>  {
         <hr />
 
         <section className="section-playlist">
-
-            {/* <div className="result-search">
-                {playlist?.map(result => <CardPlaylistDiscCover key={result.trackId} disc={result} />)}
-            </div> */}
-
-            {/* <table className="table-playlist">
-                <tbody>
-                    {playlist?.map(result => 
-                        <tr key={result.trackId}>
-                            <td>
-                                <img src={result.artworkUrl60} alt="" />
-                            </td>
-                            <td>
-                                {result.trackName}
-                            </td>
-                            <td>
-                                {result.artistName}
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table> */}
           
             {playlist?.map(result => 
                 <CardPlaylistDisc disc={result} key={result.trackId}/>
             )}
-
-            
 
         </section>
     </>

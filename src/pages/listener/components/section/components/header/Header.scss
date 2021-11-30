@@ -1,3 +1,5 @@
+@import './../../../../../../styles/variables/colors.scss';
+
 header {
     display: flex;
     justify-content: space-between;
@@ -6,6 +8,8 @@ header {
     .btn {
         padding: 20px;
         cursor: pointer;
+        // color: $fivth-color;
+        color: rgba(255, 255, 255, 0.3);
     }
 
     .header-icons-right {

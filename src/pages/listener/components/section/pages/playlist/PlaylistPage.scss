@@ -12,12 +12,7 @@
 .section-playlist {
     height: 30vh;
     overflow-y: scroll;
-}
-
-.table-playlist {
-    margin: 20px;
-    height: 200px;
-    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .section-playlist::-webkit-scrollbar-track {
