@@ -2,7 +2,7 @@
 
 .card-playlist {
     display: grid;
-    grid-template-columns: 70px 70px 200px 200px 120px 250px 70px 70px;
+    grid-template-columns: 40px 60px 200px 200px 120px 250px 70px 70px;
     grid-template-areas: 'play artworkUrl60 trackName artistName primaryGenreName collectionName country trackPrice';
     align-items: center;
     text-align: left;
@@ -14,7 +14,7 @@
 
     &__play {
         grid-area: play;
-        padding-left: 10px;
+        padding: 0 16px;
         color: $third-color;
         transition: all .5s;
         cursor: pointer;
@@ -26,6 +26,8 @@
     &__img {
         display: block;
         grid-area: artworkUrl60;
+        padding: 5px;
+        border-radius: 15px;
     }
     
     &__trackName {
@@ -64,7 +66,7 @@
 
 @media (min-width: 0px) and (max-width: 425px) {
     .card-playlist {
-        grid-template-columns: 70px 70px 200px;
+        grid-template-columns: 40px 60px 200px;
         grid-template-areas: 'play artworkUrl60 trackName';
         overflow-x: hidden;
         &__artistName,
@@ -80,7 +82,7 @@
 @media (min-width: 426px) and (max-width: 768px) {
     
     .card-playlist {
-        grid-template-columns: 70px 70px 200px 200px;
+        grid-template-columns: 40px 60px 200px 200px;
         grid-template-areas: 'play artworkUrl60 trackName artistName';
         &__primaryGenreName,
         &__collectionName,
@@ -93,7 +95,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .card-playlist {
-        grid-template-columns: 70px 70px 200px 200px 120px;
+        grid-template-columns: 40px 60px 200px 200px 120px;
         grid-template-areas: 'play artworkUrl60 trackName artistName primaryGenreName';
         &__collectionName,
         &__country,

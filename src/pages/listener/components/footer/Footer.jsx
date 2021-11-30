@@ -81,7 +81,7 @@ export const Footer = () => {
                     transitionDuration="1s"
                     transitionTimingFunction="linear"
                     height="5px"
-                    width="80vw"
+                    width="70vw"
                     isLabelVisible={false}
                     bgColor="#00ADB5"
                 />
