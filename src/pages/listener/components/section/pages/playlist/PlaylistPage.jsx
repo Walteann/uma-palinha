@@ -24,11 +24,17 @@ export const PlayListPage = () =>  {
 
 
     const getMusicsByTerm = async (term) => {
-        const { data } = await ItunesService.searchMusicByTerm(term);
-        console.log(data.results);
-        setPlayList([...data.results])
-        setIsLoading(false);
-        setIsErrorApi(false);
+        const data  = await ItunesService.searchMusicByTerm(term);
+        if (data?.results.length) {
+
+            setPlayList([...data.results])
+            setIsLoading(false);
+            setIsErrorApi(false);
+        } else {
+            setIsLoading(false);
+            setIsErrorApi(true);
+
+        }
     }
 
     const handlerChanges = (event) => {
