@@ -1,23 +1,12 @@
-const API_URL = 'https://itunes.apple.com/search';
+import axios from "axios";
+
+const API_URL = 'https://uma-palinha-proxy.herokuapp.com';
 
 export class ItunesService {
 
-
-    static async searchMusicByTerm(params) {
-        try {
-
-            let url = new URL(API_URL)
-            params.limit = 20;
-            
-            url.search = new URLSearchParams(params);
-            const response = await fetch(url);
-            const data = await response.json();
-            return data;
-
-
-        } catch (error) {
-            console.error(error);
-        }
+    static searchMusicByTerm(params) {
+        params.limit = 20;
+        return axios.get(`${API_URL}/api/v1/musics`, {params})
     }
 
 }
