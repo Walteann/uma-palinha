@@ -24,8 +24,8 @@ export const PlayListPage = () =>  {
 
 
     const getMusicsByTerm = async (term) => {
-        const data  = await ItunesService.searchMusicByTerm(term);
-        if (data?.results.length) {
+        const { data }  = await ItunesService.searchMusicByTerm(term);
+        if (data?.results) {
 
             setPlayList([...data.results])
             setIsLoading(false);
