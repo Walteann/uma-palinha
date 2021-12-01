@@ -1,12 +1,23 @@
-import axios from "axios";
-
-const API_URL = 'https://itunes.apple.com';
+const API_URL = 'https://itunes.apple.com/search';
 
 export class ItunesService {
 
-    static searchMusicByTerm(params) {
-        params.limit = 20;
-        return axios.get(API_URL + '/search', {params})
+
+    static async searchMusicByTerm(params) {
+        try {
+
+            let url = new URL(API_URL)
+            params.limit = 20;
+            
+            url.search = new URLSearchParams(params);
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
+
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 }
