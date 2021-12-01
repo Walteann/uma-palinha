@@ -1,11 +1,9 @@
 
 import { PLAY_MUSIC } from './../actions/player';
 const initalValue = {
-    previewUrl: ''
+    previewUrl: null,
+    trackName: null
 }
-// const initalValue = {
-//     valores: []
-// }
 
 export const musicInplayer = (state = initalValue, action) => {
 
@@ -14,8 +12,8 @@ export const musicInplayer = (state = initalValue, action) => {
             console.log(action.payload);
             return {
                 ...state,
-                previewUrl: action.payload
-                // valores: [...state.valores, action.payload]
+                previewUrl: action.payload.previewUrl,
+                trackName: action.payload.trackName
             }
 
 

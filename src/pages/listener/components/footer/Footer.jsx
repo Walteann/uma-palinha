@@ -48,18 +48,25 @@ export const Footer = () => {
     }, []);
 
         
+    const withoutMusic = useCallback(() => music.previewUrl && music.trackName, [music]);
+
     const playMusic = useCallback(() => {
-        const audioElement = audioMusicElement();
-        audioElement.muted = false;
-        audioElement.play();
-        updateTimeMusic();
-        setIsPlaying(true);
-    }, [updateTimeMusic]);
+        if (withoutMusic()) {
+            const audioElement = audioMusicElement();
+            audioElement.muted = false;
+            audioElement.play();
+            updateTimeMusic();
+            setIsPlaying(true);
+        } else {
+            return;
+        }
+    }, [updateTimeMusic, withoutMusic]);
     
 
     const getFlooredFixed = (value, digit) =>{
         return (Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)).toFixed(digit);
     }
+
 
     useEffect(() => {
 
@@ -71,7 +78,7 @@ export const Footer = () => {
 
     return (
         <footer>
-            <span style={{color: '#FFFFFF'}}>{music.previewUrl}</span>
+            <span className="music-name">{music.trackName}</span>
             <audio className="audio-element" src={music.previewUrl}></audio>
             <div className="progress-bar">
                 <h2>{currentTime}</h2>

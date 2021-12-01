@@ -34,16 +34,17 @@ footer {
             border-radius: 50%;
             margin: 0 20px;
             box-shadow: $primary-color 0 0 2px;
-        }
-        
-        .btn-main--active {
-            box-shadow: $primary-color 0 0 8px;
-        }
 
-        .btn-main:hover {
-            box-shadow: $primary-color 0 0 10px;
-            filter: drop-shadow($primary-color 0 0 3px);
+            &--active {
+                box-shadow: $primary-color 0 0 8px;
+            }
+
+            &:hover {
+                box-shadow: $primary-color 0 0 10px;
+                filter: drop-shadow($primary-color 0 0 3px);
+            }
         }
+    
     }
 
     .progress-bar {
@@ -55,5 +56,14 @@ footer {
             margin: 0 10px;
             color: $fivth-color;
         }
+    }
+
+    .music-name {
+        color: $text-primary-color;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 300px;
+        text-overflow: ellipsis;
+        padding: 5px;
     }
 }
