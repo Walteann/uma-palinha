@@ -8,6 +8,9 @@ import { ApiError } from './../../../../../../components/errors/ApiError';
 import { If } from './../../../../../../components/if/If';
 import { InputText } from './../../../../../../components/if/input-text/InputText';
 import { Header } from './../../components/header/Header';
+import { useSelector, useDispatch } from 'react-redux';
+import { startedPlayMusic, randomMusicRequest } from './../../../../../../store/actions/player';
+import { avoidUndefined } from './../../../../../../shared/utils/utils';
 
 export const PlayListPage = () =>  {
 
@@ -16,11 +19,26 @@ export const PlayListPage = () =>  {
     const [isErrorApi, setIsErrorApi] = useState(false);
     const [labelMensageSearch, setLabelMensageSearch] = useState('Mais Populares');
 
+    const dispatch = useDispatch();
+
     let timeout;
 
     useEffect(() => {
         getMusicsByTerm({term: 'imagine dragons'})
     }, []);
+
+    useSelector(state => {
+        if (state?.randomMusicRequest?.isRandom) {
+            if (playlist?.length) {
+                const {previewUrl, trackName, artistName} = playlist[getRamdonMusic()];
+                dispatch(startedPlayMusic({
+                    previewUrl,
+                    trackName: `${avoidUndefined(trackName)} - ${avoidUndefined(artistName)}`
+                }));
+            }
+            dispatch(randomMusicRequest({isRandom: false}))
+        }
+    });
 
 
     const getMusicsByTerm = async (term) => {
@@ -43,7 +61,6 @@ export const PlayListPage = () =>  {
             timeout = setTimeout(() => {
                 if (event.target.value) {
                     setIsLoading(true);
-                    console.log(event.target.value);
                     getMusicsByTerm({ term: event.target.value });
                     setLabelMensageSearch('Resultados sobre: ' + event.target.value);
                 }
@@ -53,6 +70,8 @@ export const PlayListPage = () =>  {
             setIsErrorApi(true);
         }
     }
+
+    const getRamdonMusic = () => Math.floor(Math.random() * playlist.length)
         
     
     return <>

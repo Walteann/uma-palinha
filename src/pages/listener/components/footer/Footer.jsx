@@ -4,9 +4,11 @@ import { faFastBackward, faFastForward, faPause, faPlay, faRandom, faVolumeMute 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { If } from './../../../../components/if/If';
+import { randomMusicRequest } from './../../../../store/actions/player';
+
 
 export const Footer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -14,10 +16,10 @@ export const Footer = () => {
     const [currentTime, setCurrentTime] = useState('');
 
     const music = useSelector(state => state.musicInplayer);
+    const dispatch = useDispatch();
 
     const pauseMusic = () => {
         const audioElement = audioMusicElement();
-        console.log(audioElement);
         
         audioElement.pause();
         setIsPlaying(false);
@@ -102,6 +104,7 @@ export const Footer = () => {
                     icon={faRandom}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(randomMusicRequest({isRandom: true}))}
                 />
                 <FontAwesomeIcon
                     icon={faFastBackward}

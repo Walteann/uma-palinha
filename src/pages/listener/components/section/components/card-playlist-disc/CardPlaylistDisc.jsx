@@ -6,12 +6,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { startedPlayMusic } from './../../../../../../store/actions/player';
+import { avoidUndefined } from './../../../../../../shared/utils/utils';
 
 export const CardPlaylistDisc = (props) => {
 
     const dispatch = useDispatch();
 
-    const avoidUndefined = value => value || '';
+   
 
     return (
     
