@@ -1,23 +1,15 @@
-import "./PlaylistPage.scss";
+import './PlaylistPage.scss';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { ItunesService } from "../../../../../../services/ItunesService";
-import { CardPlaylistDisc } from "../../components/card-playlist-disc/CardPlaylistDisc";
-import { ApiError } from "./../../../../../../components/errors/ApiError";
-import { If } from "./../../../../../../components/if/If";
-import { InputText } from "./../../../../../../components/if/input-text/InputText";
-import { Header } from "./../../components/header/Header";
-import { useSelector, useDispatch } from "react-redux";
-import {
-    startedPlayMusic,
-    randomMusicRequest,
-    previewMusic,
-    nextMusic
-} from "./../../../../../../store/actions/player";
-import { avoidUndefined } from "./../../../../../../shared/utils/utils";
-import { NEXT_OR_PREVIEW } from "./../../../../../../shared/constants/next-or-preview.constants";
-import { initalValueNextOrPreview } from "../../../../../../store/reducers/music-in-player";
+import { ItunesService } from '../../../../../../services/ItunesService';
+import { CardPlaylistDisc } from '../../components/card-playlist-disc/CardPlaylistDisc';
+import { ApiError } from './../../../../../../components/errors/ApiError';
+import { If } from './../../../../../../components/if/If';
+import { InputText } from './../../../../../../components/if/input-text/InputText';
+import { playlist_research } from './../../../../../../store/actions/player';
+import { Header } from './../../components/header/Header';
 
 export const PlayListPage = () => {
     const [playlist, setPlayList] = useState([]);
@@ -30,84 +22,18 @@ export const PlayListPage = () => {
 
     let timeout;
 
-    useEffect(() => {
-        getMusicsByTerm({ term: "imagine dragons" });
-    }, []);
-
-    useSelector((state) => {
-        if (playlist?.length) {
-            if (state?.randomMusicRequest?.isRandom) {
-                const { previewUrl, trackName, artistName } =
-                    playlist[getRamdonMusic()];
-                dispatch(
-                    startedPlayMusic({
-                        previewUrl,
-                        trackName: `${avoidUndefined(
-                            trackName
-                        )} - ${avoidUndefined(artistName)}`,
-                    })
-                );
-                dispatch(randomMusicRequest({ isRandom: false }));
-            }
-
-            if (state?.nextOrPreviewMusic?.trackId && state?.nextOrPreviewMusic?.status) {
-                let index = findByIndexMusic(
-                    state?.nextOrPreviewMusic?.trackId
-                );
-                if (
-                    NEXT_OR_PREVIEW.increment ===
-                    state?.nextOrPreviewMusic?.status
-                ) {
-                    if (index > 0 &&  (index + 1) < playlist.length) {
-                        // PODE FAZER INCREMENT
-                        const { previewUrl, trackName, artistName, trackId } =
-                    playlist[index + 1];
-                        dispatch(
-                            startedPlayMusic({
-                                previewUrl,
-                                trackName: `${avoidUndefined(
-                                    trackName
-                                )} - ${avoidUndefined(artistName)}`,
-                                trackId
-                            })
-                        );
-                    }
-                    dispatch(nextMusic(initalValueNextOrPreview))
-                }
-
-                if (NEXT_OR_PREVIEW.decrement === state?.nextOrPreviewMusic?.status) {
-                    if (index > 0) {
-                        // PODE FAZER DECREMENT
-                        const { previewUrl, trackName, artistName, trackId } =
-                    playlist[index - 1];
-                        dispatch(
-                            startedPlayMusic({
-                                previewUrl,
-                                trackName: `${avoidUndefined(
-                                    trackName
-                                )} - ${avoidUndefined(artistName)}`,
-                                trackId
-                            })
-                        );
-                    }
-                    dispatch(previewMusic(initalValueNextOrPreview))
-                }
-
-            }
-        }
-    });
-
-    const getMusicsByTerm = async (term) => {
+    const getMusicsByTerm = useCallback(async (term) => {
         const { data } = await ItunesService.searchMusicByTerm(term);
         if (data?.results?.length) {
             setPlayList([...data.results]);
             setIsLoading(false);
             setIsErrorApi(false);
+            dispatch(playlist_research({musics: data.results}));
         } else {
             setIsLoading(false);
             setIsErrorApi(true);
         }
-    };
+    }, [dispatch]);
 
     const handlerChanges = (event) => {
         try {
@@ -127,10 +53,9 @@ export const PlayListPage = () => {
         }
     };
 
-    const getRamdonMusic = () => Math.floor(Math.random() * playlist.length);
-
-    const findByIndexMusic = (trackId) =>
-        playlist.findIndex((music) => music.trackId === trackId);
+    useEffect(() => {
+        getMusicsByTerm({term: 'most populate'});
+    }, [getMusicsByTerm])
 
     return (
         <>
