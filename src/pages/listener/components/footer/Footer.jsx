@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { If } from './../../../../components/if/If';
-import { randomMusicRequest } from './../../../../store/actions/player';
+import { nextMusic, previewMusic, randomMusicRequest } from './../../../../store/actions/player';
 
 
 export const Footer = () => {
@@ -36,14 +36,17 @@ export const Footer = () => {
 
     const updateTimeMusic = useCallback(() => {
         const interval = setInterval(() => {
-            if (audioMusicElement().currentTime !== audioMusicElement().duration) {
-                
-                setCurrentTime(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
-                setDuration(getFlooredFixed(audioMusicElement()?.duration / 100, 2));
-                
-            } else {
-                setIsPlaying(false);
-                clearInterval(interval);
+            if (audioMusicElement()) {
+
+                if (audioMusicElement().currentTime !== audioMusicElement().duration) {
+                    
+                    setCurrentTime(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
+                    setDuration(getFlooredFixed(audioMusicElement()?.duration / 100, 2));
+                    
+                } else {
+                    setIsPlaying(false);
+                    clearInterval(interval);
+                }
             }
 
         });
@@ -110,6 +113,10 @@ export const Footer = () => {
                     icon={faFastBackward}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(previewMusic({ 
+                        trackId: music.trackId,
+                        status: 'decrement'
+                    }))}
                 />
                 {isPlaying ? (
                     <div className="btn-main btn-main--active" onClick={pauseMusic}>
@@ -133,6 +140,10 @@ export const Footer = () => {
                     icon={faFastForward}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(nextMusic({ 
+                        trackId: music.trackId,
+                        status: 'increment' 
+                    }))}
                 />
                 <FontAwesomeIcon
                     onClick={mutedMusic}

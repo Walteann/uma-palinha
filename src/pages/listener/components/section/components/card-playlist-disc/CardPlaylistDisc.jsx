@@ -12,8 +12,6 @@ export const CardPlaylistDisc = (props) => {
 
     const dispatch = useDispatch();
 
-   
-
     return (
     
         <div className="card-playlist">
@@ -23,7 +21,8 @@ export const CardPlaylistDisc = (props) => {
                 className="card-playlist__play" 
                 onClick={() => dispatch(startedPlayMusic({
                     previewUrl: props.disc.previewUrl, 
-                    trackName: `${avoidUndefined(props.disc.trackName)} - ${avoidUndefined(props.disc.artistName)}`
+                    trackName: `${avoidUndefined(props.disc.trackName)} - ${avoidUndefined(props.disc.artistName)}`,
+                    trackId: props.disc.trackId
                 }))
             } />
                         

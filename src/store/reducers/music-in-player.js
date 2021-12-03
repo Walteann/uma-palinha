@@ -2,15 +2,17 @@
 import { NEXT_MUSIC, PLAY_MUSIC, PREVIEW_MUSIC, RANDOM_MUSIC_REQUEST } from './../actions/player';
 const initalValue = {
     previewUrl: null,
-    trackName: null
+    trackName: null,
+    trackId: null
 }
 
 const initalValueRandom = {
     isRandom: false
 }
 
-const initalValueNextOrPreview = {
-    trackId: null
+export const initalValueNextOrPreview = {
+    trackId: null,
+    status: null
 }
 
 export const musicInplayer = (state = initalValue, action) => {
@@ -20,7 +22,8 @@ export const musicInplayer = (state = initalValue, action) => {
             return {
                 ...state,
                 previewUrl: action.payload.previewUrl,
-                trackName: action.payload.trackName
+                trackName: action.payload.trackName,
+                trackId: action.payload.trackId
             }
 
         default:
@@ -53,13 +56,16 @@ export const nextOrPreviewMusic = (state = initalValueNextOrPreview, action) => 
         case NEXT_MUSIC:
             return {
                 ...state,
-                trackId: action.payload.trackId
+                trackId: action.payload.trackId,
+                status: action.payload.status
+
             }
         
         case PREVIEW_MUSIC: 
             return {
                 ...state,
-                trackId: action.payload.trackId
+                trackId: action.payload.trackId,
+                status: action.payload.status
             }    
 
 
