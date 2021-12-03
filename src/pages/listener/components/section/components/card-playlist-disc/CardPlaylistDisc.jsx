@@ -6,12 +6,11 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { startedPlayMusic } from './../../../../../../store/actions/player';
+import { avoidUndefined } from './../../../../../../shared/utils/utils';
 
 export const CardPlaylistDisc = (props) => {
 
     const dispatch = useDispatch();
-
-    const avoidUndefined = value => value || '';
 
     return (
     
@@ -22,7 +21,8 @@ export const CardPlaylistDisc = (props) => {
                 className="card-playlist__play" 
                 onClick={() => dispatch(startedPlayMusic({
                     previewUrl: props.disc.previewUrl, 
-                    trackName: `${avoidUndefined(props.disc.trackName)} - ${avoidUndefined(props.disc.artistName)}`
+                    trackName: `${avoidUndefined(props.disc.trackName)} - ${avoidUndefined(props.disc.artistName)}`,
+                    trackId: props.disc.trackId
                 }))
             } />
                         

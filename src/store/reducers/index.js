@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import { musicInplayer } from "./music-in-player";
+import { musicInplayer, randomMusicRequest, nextOrPreviewMusic } from "./music-in-player";
 
 export const reducers = combineReducers({
     musicInplayer,
+    randomMusicRequest,
+    nextOrPreviewMusic
 });

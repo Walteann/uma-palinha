@@ -4,9 +4,11 @@ import { faFastBackward, faFastForward, faPause, faPlay, faRandom, faVolumeMute 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { If } from './../../../../components/if/If';
+import { nextMusic, previewMusic, randomMusicRequest } from './../../../../store/actions/player';
+
 
 export const Footer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -14,10 +16,10 @@ export const Footer = () => {
     const [currentTime, setCurrentTime] = useState('');
 
     const music = useSelector(state => state.musicInplayer);
+    const dispatch = useDispatch();
 
     const pauseMusic = () => {
         const audioElement = audioMusicElement();
-        console.log(audioElement);
         
         audioElement.pause();
         setIsPlaying(false);
@@ -34,14 +36,17 @@ export const Footer = () => {
 
     const updateTimeMusic = useCallback(() => {
         const interval = setInterval(() => {
-            if (audioMusicElement().currentTime !== audioMusicElement().duration) {
-                
-                setCurrentTime(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
-                setDuration(getFlooredFixed(audioMusicElement()?.duration / 100, 2));
-                
-            } else {
-                setIsPlaying(false);
-                clearInterval(interval);
+            if (audioMusicElement()) {
+
+                if (audioMusicElement().currentTime !== audioMusicElement().duration) {
+                    
+                    setCurrentTime(getFlooredFixed(audioMusicElement().currentTime / 100, 2));
+                    setDuration(getFlooredFixed(audioMusicElement()?.duration / 100, 2));
+                    
+                } else {
+                    setIsPlaying(false);
+                    clearInterval(interval);
+                }
             }
 
         });
@@ -102,11 +107,16 @@ export const Footer = () => {
                     icon={faRandom}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(randomMusicRequest({isRandom: true}))}
                 />
                 <FontAwesomeIcon
                     icon={faFastBackward}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(previewMusic({ 
+                        trackId: music.trackId,
+                        status: 'decrement'
+                    }))}
                 />
                 {isPlaying ? (
                     <div className="btn-main btn-main--active" onClick={pauseMusic}>
@@ -130,6 +140,10 @@ export const Footer = () => {
                     icon={faFastForward}
                     className="btn-control"
                     size="2x"
+                    onClick={() => dispatch(nextMusic({ 
+                        trackId: music.trackId,
+                        status: 'increment' 
+                    }))}
                 />
                 <FontAwesomeIcon
                     onClick={mutedMusic}
