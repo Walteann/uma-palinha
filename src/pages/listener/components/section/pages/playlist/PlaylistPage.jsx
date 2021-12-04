@@ -59,7 +59,7 @@ export const PlayListPage = () => {
 
     return (
         <>
-            <Header />
+            <Header pathName="/" />
 
             <InputText
                 placeholder="Buscar por termo"
