@@ -1,18 +1,18 @@
 
-import { NEXT_MUSIC, PLAY_MUSIC, PREVIEW_MUSIC, RANDOM_MUSIC_REQUEST } from './../actions/player';
+import { PLAY_MUSIC, PLAYLIST_RESEARCH } from './../actions/player';
 const initalValue = {
     previewUrl: null,
     trackName: null,
     trackId: null
 }
 
-const initalValueRandom = {
-    isRandom: false
-}
-
 export const initalValueNextOrPreview = {
     trackId: null,
     status: null
+}
+
+const initalMusics = {
+    musics: []
 }
 
 export const musicInplayer = (state = initalValue, action) => {
@@ -32,45 +32,19 @@ export const musicInplayer = (state = initalValue, action) => {
 
 }
 
-export const randomMusicRequest = (state = initalValueRandom, action) => {
+export const musicsPlaylistResearch = (state = initalMusics, action) => {
 
     switch(action.type) {
-        case RANDOM_MUSIC_REQUEST:
+        case PLAYLIST_RESEARCH:
             return {
                 ...state,
-                isRandom: action.payload.isRandom
+                ...action.payload
             }
-
+            
 
         default:
             return state;
-    }
 
-}
-
-export const nextOrPreviewMusic = (state = initalValueNextOrPreview, action) => {
-
-
-    switch(action.type) {
-
-        case NEXT_MUSIC:
-            return {
-                ...state,
-                trackId: action.payload.trackId,
-                status: action.payload.status
-
-            }
-        
-        case PREVIEW_MUSIC: 
-            return {
-                ...state,
-                trackId: action.payload.trackId,
-                status: action.payload.status
-            }    
-
-
-        default:
-            return state;
     }
 
 }

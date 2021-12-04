@@ -4,11 +4,12 @@ import { faFastBackward, faFastForward, faPause, faPlay, faRandom, faVolumeMute 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { useCallback, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { If } from './../../../../components/if/If';
-import { nextMusic, previewMusic, randomMusicRequest } from './../../../../store/actions/player';
-
+import { NEXT_OR_PREVIEW } from './../../../../shared/constants/next-or-preview.constants';
+import { avoidUndefined } from './../../../../shared/utils/utils';
+import { startedPlayMusic } from './../../../../store/actions/player';
 
 export const Footer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -16,6 +17,9 @@ export const Footer = () => {
     const [currentTime, setCurrentTime] = useState('');
 
     const music = useSelector(state => state.musicInplayer);
+
+    const musicsLists = useSelector((state) => state.musicsPlaylistResearch);
+
     const dispatch = useDispatch();
 
     const pauseMusic = () => {
@@ -68,17 +72,79 @@ export const Footer = () => {
     }, [updateTimeMusic, withoutMusic]);
     
 
-    const getFlooredFixed = (value, digit) =>{
+    const getFlooredFixed = (value, digit) => {
         return (Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)).toFixed(digit);
     }
 
+    const getRamdonMusic = () => Math.floor(Math.random() * musicsLists.musics.length);
+
+    const findByIndexMusic = (trackId) =>
+        musicsLists.musics.findIndex((music) => music.trackId === trackId);
+
+    const randomMusicList = () => {
+        if (musicsLists?.musics?.length) {
+            const { previewUrl, trackName, artistName, trackId } =
+            musicsLists.musics[getRamdonMusic()];
+            dispatch(
+                startedPlayMusic({
+                    previewUrl,
+                    trackName: `${avoidUndefined(
+                        trackName
+                    )} - ${avoidUndefined(artistName)}`,
+                    trackId
+                })
+            );
+        }
+    }
+
+    const onNextOrPreviewMusic = (trackId, status) => {
+
+        if (trackId) {
+            let index = findByIndexMusic(trackId
+            );
+            if (
+                NEXT_OR_PREVIEW.increment === status
+            ) {
+                if (index > 0 &&  (index + 1) < musicsLists?.musics?.length) {
+                    // PODE FAZER INCREMENT
+                    const { previewUrl, trackName, artistName, trackId } =
+                musicsLists.musics[index + 1];
+                    dispatch(
+                        startedPlayMusic({
+                            previewUrl,
+                            trackName: `${avoidUndefined(
+                                trackName
+                            )} - ${avoidUndefined(artistName)}`,
+                            trackId
+                        })
+                    );
+                }
+            }
+
+            if (NEXT_OR_PREVIEW.decrement === status) {
+                if (index > 0) {
+                    // PODE FAZER DECREMENT
+                    const { previewUrl, trackName, artistName, trackId } =
+                musicsLists.musics[index - 1];
+                    dispatch(
+                        startedPlayMusic({
+                            previewUrl,
+                            trackName: `${avoidUndefined(
+                                trackName
+                            )} - ${avoidUndefined(artistName)}`,
+                            trackId
+                        })
+                    );
+                }
+            }
+
+        }
+    }
 
     useEffect(() => {
-
         if (music.previewUrl) {
             playMusic();
         }
-
     }, [music, playMusic]);
 
     return (
@@ -107,16 +173,13 @@ export const Footer = () => {
                     icon={faRandom}
                     className="btn-control"
                     size="2x"
-                    onClick={() => dispatch(randomMusicRequest({isRandom: true}))}
+                    onClick={() => randomMusicList()}
                 />
                 <FontAwesomeIcon
                     icon={faFastBackward}
                     className="btn-control"
                     size="2x"
-                    onClick={() => dispatch(previewMusic({ 
-                        trackId: music.trackId,
-                        status: 'decrement'
-                    }))}
+                    onClick={() => onNextOrPreviewMusic(music.trackId, NEXT_OR_PREVIEW.decrement)}
                 />
                 {isPlaying ? (
                     <div className="btn-main btn-main--active" onClick={pauseMusic}>
@@ -140,10 +203,7 @@ export const Footer = () => {
                     icon={faFastForward}
                     className="btn-control"
                     size="2x"
-                    onClick={() => dispatch(nextMusic({ 
-                        trackId: music.trackId,
-                        status: 'increment' 
-                    }))}
+                    onClick={() => onNextOrPreviewMusic(music.trackId, NEXT_OR_PREVIEW.increment)}
                 />
                 <FontAwesomeIcon
                     onClick={mutedMusic}
