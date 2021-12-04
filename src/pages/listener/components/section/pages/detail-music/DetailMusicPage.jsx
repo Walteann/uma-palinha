@@ -1,3 +1,7 @@
+import { Header } from './../../components/header/Header';
+
 export const DetailMusicPage = () => (
-    <h3>Deail list rota</h3>
+    <>
+        <Header pathName="/listener/playlist" />
+    </>
 )
