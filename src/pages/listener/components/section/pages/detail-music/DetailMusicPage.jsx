@@ -1,10 +1,13 @@
+import './DetailMusicPage.scss';
+
+import { faApple } from '@fortawesome/free-brands-svg-icons';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+
+import { ButtonIcon } from '../../../../../../components/buttons/button-icon/ButtonIcon';
 import { Header } from './../../components/header/Header';
-import './DetailMusicPage.scss';
-import { faApple } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 export const DetailMusicPage = () =>  {
 
@@ -33,49 +36,23 @@ export const DetailMusicPage = () =>  {
                 <div className="music-detail__figure">
                     <figure>
                         <img src={requestImage300(detail.artworkUrl100)} alt="" />
-                        <label>{detail.trackName}</label>
+                        <div>
+                            <label>{detail.trackName}</label>
+                            <label>{detail.artistName}</label>
+                        </div>
                     </figure>
                 </div>
                 <div className="music-detail__description">
 
                     <div className="music-detail__description__details">
-                        <label><span>Música: </span>{detail.trackName}</label>
-                        <label><span>Artista: </span>{detail.artistName}</label>
-                        <label><span>Preço: </span>{detail.trackPrice}</label>
-                        <label><span>País: </span>{detail.country}</label>
+                        <label><span>{detail.currency}</span>  {detail.trackPrice}</label>
+                        <label>{detail.primaryGenreName}</label>
                     </div>
 
                     <div className="music-detail__description__buttons">
-                        <button className="music-detail__description__buttons__btn">
-                        <FontAwesomeIcon
-                            icon={faApple}
-                            className="btn-control"
-                            size="2x"
-                            color="#FFFFFF"
-                        />
-                            <span>MUSIC
-                            </span> 
-                        </button>   
-                        <button className="music-detail__description__buttons__btn">
-                        <FontAwesomeIcon
-                            icon={faApple}
-                            className="btn-control"
-                            size="2x"
-                            color="#FFFFFF"
-                        />
-                            <span>Album
-                            </span> 
-                        </button>   
-                        <button className="music-detail__description__buttons__btn">
-                        <FontAwesomeIcon
-                            icon={faApple}
-                            className="btn-control"
-                            size="2x"
-                            color="#FFFFFF"
-                        />
-                            <span>Artista
-                            </span> 
-                        </button>   
+                        <ButtonIcon icon={faApple} label="Artista" url={detail.artistViewUrl}></ButtonIcon>
+                        <ButtonIcon icon={faApple} label="Música" url={detail.trackViewUrl}></ButtonIcon>
+                        <ButtonIcon icon={faApple} label="Album" url={detail.collectionViewUrl}></ButtonIcon>
                     </div>
                 </div>
             </section>

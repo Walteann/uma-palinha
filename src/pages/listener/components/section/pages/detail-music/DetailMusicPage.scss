@@ -1,7 +1,7 @@
 .music-detail {
     display: flex;
     justify-content: space-around;
-    color: #FFF;
+    color: #fbfbfbab;
     align-items: flex-start;
 
     &__figure {
@@ -9,13 +9,24 @@
         figure {
             display: flex;
             flex-direction: column;
+
+            img {
+                box-shadow: 1px 1px 3px #222831;
+            }
         }
 
-        label   {
-            color: #FFF;
+        div  {
+            color: #00ADB5;
             font-size: 16pt;
             font-weight: 500;
             padding: 20px 10px;
+            label {
+                display: block;
+            }
+
+            label:nth-child(2) {
+                font-weight: 100;
+            }
         }
     }
 
@@ -27,7 +38,7 @@
         font-weight: 600;
         height: 300px;
         margin: 5px;
-
+        text-shadow: 1px 1px 1px #000;
         label {
             padding: 5px;
         }
@@ -43,26 +54,27 @@
             display: flex;
             justify-content: space-around;
 
-
-            &__btn {
-                background-color: #000000;
-                color: #FFF;
-                font-size: 16px;
-                font-weight: 600;
-                border: none;
-                display: flex;
-                align-items: center;
-                padding: 8px 20px;
-                border-radius: 10px;
-                cursor: pointer;
-                margin: 2px;
-    
-                span {
-                    font-size: 15px;
-                    padding-left: 10px;
-                }
-            }
         }
 
     }
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .music-detail {
+        flex-direction: column;
+        align-items: center;
+
+        &__description {
+            justify-content: flex-start;
+            
+            &__details {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+
+
 }
