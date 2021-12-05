@@ -6,11 +6,17 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { startedPlayMusic } from './../../../../../../store/actions/player';
+import { musicDetailChoice } from './../../../../../../store/actions/musicDetail';
 import { avoidUndefined } from './../../../../../../shared/utils/utils';
 
 export const CardPlaylistDisc = (props) => {
 
     const dispatch = useDispatch();
+
+    const onClickLine = (musicDetail) => {
+        console.log('ola');
+        dispatch(musicDetailChoice(musicDetail))
+    }
 
     return (
     
@@ -27,7 +33,7 @@ export const CardPlaylistDisc = (props) => {
             } />
                         
             <img className="card-playlist__img" src={props.disc.artworkUrl60} alt={props.disc.trackName} />
-            <Link to="/listener/detail" className="card-playlist__trackName">{props.disc.trackName}</Link>
+            <Link to="/listener/detail" className="card-playlist__trackName" onClick={() => onClickLine(props.disc)}>{props.disc.trackName}</Link>
             <label className="card-playlist__artistName">{props.disc.artistName}</label>
             <label className="card-playlist__primaryGenreName">{props.disc.primaryGenreName}</label>
             <label className="card-playlist__collectionName">{props.disc.collectionName}</label>
