@@ -1,0 +1,114 @@
+.music-detail {
+    display: flex;
+    justify-content: space-around;
+    color: #fbfbfbab;
+    align-items: flex-start;
+
+    &__content {
+        
+        &__figure {
+            display: flex;
+            flex-direction: column;
+
+            &__container {
+                position: relative;
+                // width: 50%;
+                
+                &__image {
+                    box-shadow: 1px 1px 3px #222831;
+                    opacity: 1;
+                    display: block;
+                    // width: 100%;
+                    height: auto;
+                    transition: .5s ease;
+                    backface-visibility: hidden;
+                }
+            }
+
+            &__container__middle {
+                transition: 0.5s ease;
+                opacity: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                text-align: center;
+
+                &__icon {
+                    background-color: #04AA6D;
+                    color: white;
+                    font-size: 16px;
+                    padding: 16px 32px;
+                }
+            }
+
+            &__container:hover &__container__image {
+                opacity: 0.3;
+              }
+              
+            &__container__middle:hover &__container__middle__icon {
+                opacity: 1;
+              }
+        }
+
+        .__labels {
+            color: #00adb5;
+            font-size: 16pt;
+            font-weight: 500;
+            padding: 20px 10px;
+            label {
+                display: block;
+            }
+
+            label:nth-child(2) {
+                font-weight: 100;
+            }
+        }
+    }
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-size: 25px;
+        font-weight: 600;
+        height: 300px;
+        margin: 5px;
+        text-shadow: 1px 1px 1px #000;
+
+        label {
+            padding: 5px;
+        }
+
+        &__details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+
+@media (min-width: 0px) and (max-width: 425px) {
+    .music-detail {
+        flex-direction: column;
+        align-items: center;
+
+        &__description {
+            justify-content: flex-start;
+
+            &__details {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+}
