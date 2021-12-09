@@ -6,7 +6,7 @@ Ainda em Desenvolvimento.
 
 Objetivo desse projeto é demonstrar o conhecimento sobre o React, usando técnologias como Redux, display grid
 
-### Oque foi colocado em práticado nesse projeto.
+### Oque foi colocado em prática nesse projeto.
 
 - [x] Display Grid
 - [x] Scss
