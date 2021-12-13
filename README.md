@@ -27,3 +27,8 @@ Objetivo desse projeto é demonstrar o conhecimento sobre o React, usando técno
   - [ ] Play da Musica
   - [ ] Adicionar Musica numa nova PlayList
 - [ ] Nova PlayList
+
+
+# API ITUNES
+
+[Api Itunes](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html)
