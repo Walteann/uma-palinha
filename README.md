@@ -32,3 +32,7 @@ Objetivo desse projeto é demonstrar o conhecimento sobre o React, usando técno
 # API ITUNES
 
 [Api Itunes](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html)
+
+### Referencias:
+
+Página inicial baseado nesse [protótipo](https://www.figma.com/community/file/822208257356121745) da comunidade do figma
