@@ -36,3 +36,5 @@ Objetivo desse projeto é demonstrar o conhecimento sobre o React, usando técno
 ### Referencias:
 
 Página inicial baseado nesse [protótipo](https://www.figma.com/community/file/822208257356121745) da comunidade do figma
+
+ainda em desenvolvimento...
